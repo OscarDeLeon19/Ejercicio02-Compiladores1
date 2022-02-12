@@ -11,14 +11,15 @@ package analizador_lexico;
 
 espacio = [ ,\t,\r,\n]+
 vocal = [a,e,i,o,u]
-numero = [0-9]
+numero = [0-9]+
 
 %{
     private String dato;
     private int fila;
     private int columna;
     private int tipo;
-    private int cantidadVocales = 0;
+    private int vocales = 0;
+    private int cantidadVocales;
 
     public int getTipo(){
         return tipo;
@@ -39,6 +40,7 @@ numero = [0-9]
 
 %%
 
-{espacio} {System.out.println("Vocales: " + cantidadVocales); cantidadVocales =0 ;}
-{vocal} {cantidadVocales++; System.out.println("Cantidad: " + cantidadVocales);}
+{espacio} {tipo = 1; cantidadVocales = vocales; vocales = 0; return new Object();}
+{vocal} {vocales++;}
+{numero} {tipo = 2; fila = yyline; columna = yycolumn; cantidadVocales = vocales; vocales = 0; return new Object();}
 [^] {}

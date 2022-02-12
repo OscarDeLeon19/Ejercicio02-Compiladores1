@@ -121,7 +121,7 @@ public class Ventana extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnalizarActionPerformed
-        StringReader str = new StringReader(areaTexto.getText());
+        StringReader str = new StringReader(areaTexto.getText() + " ");
         Analizador analizador = new Analizador(str);
         try {
             analizador.yylex();
