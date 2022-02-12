@@ -7,10 +7,9 @@ package analizador_lexico;
 %column
 %public
 %type Object
-%ignorecase
 
 espacio = [ ,\t,\r,\n]+
-vocal = [a,e,i,o,u]
+vocal = [aA,eE,iI,oO,uU]
 numero = [0-9]+
 
 %{

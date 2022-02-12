@@ -277,7 +277,8 @@ public class Analizador {
     private int fila;
     private int columna;
     private int tipo;
-    private int cantidadVocales = 0;
+    private int vocales = 0;
+    private int cantidadVocales;
 
     public int getTipo(){
         return tipo;
@@ -694,17 +695,17 @@ public class Analizador {
             // fall through
           case 5: break;
           case 2:
-            { System.out.println("Vocales: " + cantidadVocales); cantidadVocales =0 ;
+            { tipo = 1; cantidadVocales = vocales; vocales = 0; return new Object();
             }
             // fall through
           case 6: break;
           case 3:
-            { System.out.println("Dato: " + yytext());
+            { tipo = 2; fila = yyline; columna = yycolumn; cantidadVocales = vocales; vocales = 0; return new Object();
             }
             // fall through
           case 7: break;
           case 4:
-            { cantidadVocales++; System.out.println("Cantidad: " + cantidadVocales);
+            { vocales++;
             }
             // fall through
           case 8: break;

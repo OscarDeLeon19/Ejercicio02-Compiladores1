@@ -6,7 +6,6 @@ import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.text.BadLocationException;
 
-
 public class Ventana extends javax.swing.JFrame {
 
     /**
@@ -15,7 +14,7 @@ public class Ventana extends javax.swing.JFrame {
     public Ventana() {
         initComponents();
         setLocationRelativeTo(null);
-        
+
         areaTexto.addCaretListener(new CaretListener() {
             @Override
             public void caretUpdate(CaretEvent e) {
@@ -66,6 +65,7 @@ public class Ventana extends javax.swing.JFrame {
 
         areaResultados.setColumns(20);
         areaResultados.setRows(5);
+        areaResultados.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         areaResultados.setEnabled(false);
         jScrollPane2.setViewportView(areaResultados);
 
@@ -93,40 +93,77 @@ public class Ventana extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(etiqueta2))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(203, 203, 203)
+                        .addGap(195, 195, 195)
                         .addComponent(jLabel1)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonAnalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(etiqueta1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(etiqueta2)))
-                .addGap(19, 19, 19))
+                        .addComponent(etiqueta2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(botonAnalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnalizarActionPerformed
+        int[] palabras = new int[6];
         StringReader str = new StringReader(areaTexto.getText() + " ");
         Analizador analizador = new Analizador(str);
+        areaResultados.setText(null);
+        String texto = "";
         try {
-            analizador.yylex();
+            boolean bandera = true;
+            while (bandera) {
+                Object objeto = analizador.yylex();
+                if (objeto == null) {
+                    System.out.println("Fin");
+                    bandera = false;
+                }
+
+                if (bandera == true) {
+                    if (analizador.getTipo() == 1) {
+                        if (analizador.getCantidadVocales() > 0 && analizador.getCantidadVocales() <= 5) {
+                            System.out.println("Cantidad de Vocales: " + analizador.getCantidadVocales());
+                            palabras[analizador.getCantidadVocales() - 1]++;
+                        } else if (analizador.getCantidadVocales() > 5) {
+                            palabras[5]++;
+                        }
+                    } else if (analizador.getTipo() == 2) {
+                        texto = texto + "Numero: " + analizador.yytext() + " | Fila: " + (analizador.getFila() +1) + " | Columna: " + (analizador.getColumna()+1) + "\n";
+                    }
+                }
+            }
+
         } catch (Exception e) {
+            System.out.println(e);
         }
+
+        areaResultados.append("Palabras con una vocal: " + palabras[0] + "\n");
+        areaResultados.append("Palabras con dos vocales: " + palabras[1] + "\n");
+        areaResultados.append("Palabras con tres vocales: " + palabras[2] + "\n");
+        areaResultados.append("Palabras con cuatro vocales: " + palabras[3] + "\n");
+        areaResultados.append("Palabras con cinco vocales: " + palabras[4] + "\n");
+        areaResultados.append("Palabras con mas de cinco vocales: " + palabras[5] + "\n");
+
+        areaResultados.append("Enteros: \n");
+        areaResultados.append(texto);
+
+
     }//GEN-LAST:event_botonAnalizarActionPerformed
 
     /**
