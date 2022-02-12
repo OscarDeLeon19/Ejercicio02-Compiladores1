@@ -1,5 +1,7 @@
 package main;
 
+import analizador_lexico.Analizador;
+import java.io.StringReader;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.text.BadLocationException;
@@ -56,6 +58,11 @@ public class Ventana extends javax.swing.JFrame {
         jScrollPane1.setViewportView(areaTexto);
 
         botonAnalizar.setText("Analizar");
+        botonAnalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAnalizarActionPerformed(evt);
+            }
+        });
 
         areaResultados.setColumns(20);
         areaResultados.setRows(5);
@@ -112,6 +119,15 @@ public class Ventana extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void botonAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnalizarActionPerformed
+        StringReader str = new StringReader(areaTexto.getText());
+        Analizador analizador = new Analizador(str);
+        try {
+            analizador.yylex();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_botonAnalizarActionPerformed
 
     /**
      * @param args the command line arguments

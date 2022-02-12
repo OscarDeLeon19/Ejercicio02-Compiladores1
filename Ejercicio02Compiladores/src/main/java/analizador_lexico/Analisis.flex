@@ -1,4 +1,4 @@
-package main;
+package analizador_lexico;
 
 %%
 
@@ -40,4 +40,5 @@ numero = [0-9]
 %%
 
 {espacio} {System.out.println("Vocales: " + cantidadVocales); cantidadVocales =0 ;}
-{vocal} {cantidadVocales++;}
+{vocal} {cantidadVocales++; System.out.println("Cantidad: " + cantidadVocales);}
+[^] {}
