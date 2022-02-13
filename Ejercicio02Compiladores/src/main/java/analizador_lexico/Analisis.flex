@@ -9,6 +9,7 @@ package analizador_lexico;
 %type Object
 
 espacio = [ ,\t,\r,\n]+
+letra = [a-zA-Z]
 vocal = [aA,eE,iI,oO,uU]
 numero = [0-9]+
 
@@ -42,4 +43,5 @@ numero = [0-9]+
 {espacio} {tipo = 1; cantidadVocales = vocales; vocales = 0; return new Object();}
 {vocal} {vocales++;}
 {numero} {tipo = 2; fila = yyline; columna = yycolumn; cantidadVocales = vocales; vocales = 0; return new Object();}
-[^] {}
+{letra} {/*Nada*/}
+[^] {tipo = 3; cantidadVocales = vocales; vocales = 0; return new Object();}

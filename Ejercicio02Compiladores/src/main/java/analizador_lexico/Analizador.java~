@@ -63,8 +63,10 @@ public class Analizador {
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     "\11\0\2\1\2\0\1\1\22\0\1\1\13\0\1\1"+
-    "\3\0\12\2\47\0\1\3\3\0\1\3\3\0\1\3"+
-    "\5\0\1\3\5\0\1\3\u018a\0";
+    "\3\0\12\2\7\0\1\3\3\4\1\3\3\4\1\3"+
+    "\5\4\1\3\5\4\1\3\5\4\6\0\1\3\3\4"+
+    "\1\3\3\4\1\3\5\4\1\3\5\4\1\3\5\4"+
+    "\u0185\0";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[512];
@@ -91,10 +93,10 @@ public class Analizador {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\1\4";
+    "\1\0\1\1\1\2\1\3\1\4\1\5";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[5];
+    int [] result = new int[6];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -119,10 +121,10 @@ public class Analizador {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\4\0\10\0\14\0\4";
+    "\0\0\0\5\0\12\0\17\0\5\0\5";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[5];
+    int [] result = new int[6];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -145,11 +147,11 @@ public class Analizador {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\1\4\1\5\5\0\1\3\4\0\1\4"+
-    "\1\0";
+    "\1\2\1\3\1\4\1\5\1\6\6\0\1\3\5\0"+
+    "\1\4\2\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[16];
+    int [] result = new int[20];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -192,10 +194,10 @@ public class Analizador {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\2\1\1\11";
+    "\1\0\1\11\2\1\2\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[5];
+    int [] result = new int[6];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -690,25 +692,30 @@ public class Analizador {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { 
+            { System.out.println("ERROR");
             }
             // fall through
-          case 5: break;
+          case 6: break;
           case 2:
             { tipo = 1; cantidadVocales = vocales; vocales = 0; return new Object();
             }
             // fall through
-          case 6: break;
+          case 7: break;
           case 3:
             { tipo = 2; fila = yyline; columna = yycolumn; cantidadVocales = vocales; vocales = 0; return new Object();
             }
             // fall through
-          case 7: break;
+          case 8: break;
           case 4:
             { vocales++;
             }
             // fall through
-          case 8: break;
+          case 9: break;
+          case 5:
+            { /*Nada*/
+            }
+            // fall through
+          case 10: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
