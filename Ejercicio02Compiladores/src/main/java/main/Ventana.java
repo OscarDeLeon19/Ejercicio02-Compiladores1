@@ -1,6 +1,7 @@
 package main;
 
 import analizador_lexico.Analizador;
+import java.io.IOException;
 import java.io.StringReader;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
@@ -127,10 +128,8 @@ public class Ventana extends javax.swing.JFrame {
             while (bandera) {
                 Object objeto = analizador.yylex();
                 if (objeto == null) {
-                    areaResultados.append("Fin del analisis: \n");
                     bandera = false;
                 }
-
                 if (bandera == true) {
                     if (analizador.getTipo() == 1) {
                         contarPalabra(analizador.getCantidadVocales(), palabras);
@@ -143,7 +142,7 @@ public class Ventana extends javax.swing.JFrame {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println(e);
         }
 
