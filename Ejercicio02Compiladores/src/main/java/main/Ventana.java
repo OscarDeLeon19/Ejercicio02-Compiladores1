@@ -10,12 +10,13 @@ import javax.swing.text.BadLocationException;
 public class Ventana extends javax.swing.JFrame {
 
     /**
-     * Creates new form Ventana
+     * Constructor
      */
     public Ventana() {
         initComponents();
         setLocationRelativeTo(null);
-
+        
+        // Accion para tener el conteo de filas y columnas mientras se utiliza la aplicacion        
         areaTexto.addCaretListener(new CaretListener() {
             @Override
             public void caretUpdate(CaretEvent e) {
@@ -115,7 +116,12 @@ public class Ventana extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Accion que se realiza al presionar el boton analizar.
+     * Obtiene los resultados del analizador lexico para asi realizar el conteo de vocales numeros y valores no idetificados.
+     * Despues de realizar el conteo, agrega los resultados a un area de texto.
+     * @param evt 
+     */
     private void botonAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAnalizarActionPerformed
         int[] palabras = new int[6];
         StringReader str = new StringReader(areaTexto.getText() + " ");
@@ -161,7 +167,11 @@ public class Ventana extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_botonAnalizarActionPerformed
-
+    /**
+     * Obtiene la cantidad de vocales de una palabra y la clasifica segun esta cantidad
+     * @param cantidadVocales La cantidad de vocales
+     * @param palabras El arreglo de clasificacion de palabras
+     */
     public void contarPalabra(int cantidadVocales, int[] palabras) {
         if (cantidadVocales > 0 && cantidadVocales <= 5) {
             palabras[cantidadVocales - 1]++;
